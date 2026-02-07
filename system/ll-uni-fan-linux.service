@@ -1,0 +1,16 @@
+[Unit]
+Description=Lian-Li UNI FAN Linux Controller
+After=systemd-udev-settle.service
+Wants=systemd-udev-settle.service
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/default/ll-uni-fan-linux
+ExecStart=/usr/local/bin/ll-uni-fan-linux
+Restart=always
+RestartSec=5
+User=fanctl
+SupplementaryGroups=plugdev
+
+[Install]
+WantedBy=multi-user.target

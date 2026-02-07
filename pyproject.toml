@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "ll-uni-fan-linux"
+version = "0.1.0"
+description = "Linux daemon to control Lian-Li UNI FAN SL-INF 120 via USB HID"
+authors = ["Yann Lambret"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "ll_uni_fan_linux"}]
+include = ["ll_uni_fan_linux/protocols.yaml"]
+
+[tool.poetry.scripts]
+ll-uni-fan-linux = "ll_uni_fan_linux.daemon:main"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+hidapi = "^0.14"
+psutil = "^5.9"
+python-dotenv = "^1.2.1"
+PyYAML = "^6.0.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4"
+ruff = "^0.1"
+mypy = "^1.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true

@@ -1,0 +1,24 @@
+# Lian-Li UNI FAN Linux Controller configuration
+# This file is sourced by systemd as an EnvironmentFile.
+# Reload at runtime with: systemctl kill -s HUP ll-uni-fan-linux
+
+# Fan controller protocol (see protocols.yaml for available keys)
+PROTOCOL=lian-li-sl-inf
+
+# Fan profile: silent, balanced, performance
+PROFILE=balanced
+
+# Temperature polling interval in seconds
+POLL_INTERVAL=3
+
+# Active fan channels (comma-separated, 0-3)
+CHANNELS=0,1,2,3
+
+# Fan speed set on daemon shutdown (0-100%)
+SAFE_SPEED=90
+
+# Logging level: DEBUG, INFO, WARNING, ERROR
+LOG_LEVEL=INFO
+
+# Enable debug mode (overrides LOG_LEVEL to DEBUG)
+DEBUG=false

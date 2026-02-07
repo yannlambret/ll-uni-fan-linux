@@ -1,0 +1,6 @@
+# udev rule for Lian-Li UNI FAN USB controller
+# Grants access to the hidraw device for fan control via hidapi-hidraw backend
+# TAG+="uaccess" allows logged-in users (ACL-based)
+# RUN setfacl grants plugdev group access for system services (e.g. fanctl user)
+# Note: GROUP + MODE alone is insufficient because uaccess ACLs override POSIX group bits
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="0cf2", ATTRS{idProduct}=="a102", TAG+="uaccess", GROUP="plugdev", MODE="0660", RUN+="/usr/bin/setfacl -m g:plugdev:rw- /dev/%k"

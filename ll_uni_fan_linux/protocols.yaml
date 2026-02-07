@@ -1,0 +1,56 @@
+# Fan controller protocol definitions.
+#
+# Each entry defines the USB identification and command format for a specific
+# controller model. The daemon selects a protocol by name via the PROTOCOL
+# configuration parameter.
+#
+# Values extracted from https://github.com/EightB1ts/uni-sync (src/devices/mod.rs).
+# Support status per uni-sync: "Fully Supported" or "Untested" (noted below).
+
+lian-li-sl-inf:  # Fully Supported
+  name: Lian-Li UNI FAN SL-INF
+  vendor_id: 0x0CF2
+  product_id: 0xA102
+  cmd_prefix: 0xE0
+  sub_cmd: 0x10
+  init_byte: 0x61
+  mode_byte: 0x62
+  speed_channel_base: 0x20
+  rpm_min: 200.0
+  rpm_scale: 19.0
+  rpm_divisor: 21.0
+  delay_init: 0.2
+  delay_mode: 0.2
+  delay_speed: 0.1
+
+lian-li-sl-v1:  # Fully Supported
+  name: Lian-Li UNI FAN SL V1
+  vendor_id: 0x0CF2
+  product_id: 0xA100
+  cmd_prefix: 0xE0
+  sub_cmd: 0x10
+  init_byte: 0x30
+  mode_byte: 0x31
+  speed_channel_base: 0x20
+  rpm_min: 800.0
+  rpm_scale: 11.0
+  rpm_divisor: 19.0
+  delay_init: 0.2
+  delay_mode: 0.2
+  delay_speed: 0.1
+
+lian-li-al-v1:  # Untested
+  name: Lian-Li UNI FAN AL V1
+  vendor_id: 0x0CF2
+  product_id: 0xA101
+  cmd_prefix: 0xE0
+  sub_cmd: 0x10
+  init_byte: 0x41
+  mode_byte: 0x42
+  speed_channel_base: 0x20
+  rpm_min: 800.0
+  rpm_scale: 11.0
+  rpm_divisor: 19.0
+  delay_init: 0.2
+  delay_mode: 0.2
+  delay_speed: 0.1
