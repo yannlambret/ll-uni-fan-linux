@@ -3,7 +3,7 @@
 import logging
 import time
 
-import hid
+import hidraw as hid
 
 from ll_uni_fan_linux.protocol import Protocol
 

@@ -27,20 +27,34 @@ Adding a new controller model only requires a new entry in `protocols.yaml`.
 ## Prerequisites
 
 - Python 3.10+
+- `pipx` — available via `apt` on Ubuntu 22.04 and later
+- `acl` — provides `setfacl`, used by the udev rule; pre-installed on most Ubuntu systems
+
+```bash
+sudo apt install pipx acl
+```
+
+> The `hidapi` PyPI package ships as a self-contained manylinux wheel with all HID
+> libraries bundled. No system HID packages (`libhidapi-*`, `libusb-*`) are required.
 
 ## Installation
 
+### 1. Install the daemon
+
 ```bash
-# Install the daemon (from a local clone)
-sudo pipx install .
+# From a local clone
+sudo PIPX_HOME=/opt/pipx PIPX_BIN_DIR=/usr/local/bin pipx install .
 
 # Or directly from the repository
-sudo pipx install git+https://github.com/yannlambret/ll-uni-fan-linux.git
+sudo PIPX_HOME=/opt/pipx PIPX_BIN_DIR=/usr/local/bin pipx install git+https://github.com/yannlambret/ll-uni-fan-linux.git
 ```
 
-### udev Rule
+The `PIPX_HOME` and `PIPX_BIN_DIR` overrides ensure the binary lands in `/usr/local/bin`
+rather than `/root/.local/bin`, which is required for the systemd service to find it.
 
-The daemon needs access to the USB HID device. Install the provided udev rule to grant access without running as root:
+### 2. Install the udev rule
+
+The daemon runs as an unprivileged user and needs read/write access to the USB HID device:
 
 ```bash
 sudo cp system/99-lian-li.rules /etc/udev/rules.d/
@@ -48,7 +62,7 @@ sudo udevadm control --reload-rules
 sudo udevadm trigger
 ```
 
-### systemd Service
+### 3. Set up the systemd service
 
 ```bash
 # Create a dedicated system user
@@ -138,7 +152,7 @@ The daemon automatically retries the connection every 10 seconds.
 
 ### Permission denied on HID device
 
-Install the udev rule (see [Installation](#udev-rule)) and make sure the `fanctl` user belongs to the `plugdev` group.
+Install the udev rule (see [Installation](#2-install-the-udev-rule)) and make sure the `fanctl` user belongs to the `plugdev` group.
 
 ### No temperature readings
 
